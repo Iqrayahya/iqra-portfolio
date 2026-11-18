@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Iqra Yahya Studio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Iqra Yahya creates AI video, builds AI agents and automates workflows with Claude Code for founders and business owners.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one long dark reel-style scroll. Big heavy sans + crimson serif italic accents, mono "camera UI" labels, 9:16 work grid. */
+:root{
+  --bg:#0b0708;
+  --surface:#150d10;
+  --surface-2:#1d1216;
+  --line:#2e1c21;
+  --fg:#f7f1f2;
+  --muted:#ae9ca1;
+  --crimson:#e01b4c;
+  --crimson-soft:#ff4d76;
+  --crimson-deep:#5c0a1e;
+  --f-display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --f-serif:"Instrument Serif","Times New Roman",Georgia,serif;
+  --f-body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  --wrap:1180px;
+  --gut:max(16px, env(safe-area-inset-left, 0px));
+  --gut-r:max(16px, env(safe-area-inset-right, 0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:17px;line-height:1.6;font-variation-settings:"wdth" 100;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+a{color:inherit}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--crimson-soft);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-left:var(--gut);padding-right:var(--gut-r)}
+.it{font-family:var(--f-serif);font-style:italic;font-weight:400;color:var(--crimson);letter-spacing:0;font-variation-settings:normal}
+.mono{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--crimson);color:#fff;padding:8px 14px;border-radius:6px;z-index:100}
+.skip:focus{left:16px}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:68px}
+.logo{font-family:var(--f-display);font-weight:900;font-size:19px;letter-spacing:-.01em;text-decoration:none;font-variation-settings:"wdth" 88;display:flex;align-items:center;gap:10px}
+.logo .dot{width:9px;height:9px;border-radius:50%;background:var(--crimson);box-shadow:0 0 14px var(--crimson)}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+.nav ul a{text-decoration:none;font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.nav ul a:hover{color:var(--fg)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:700;font-size:15px;letter-spacing:.02em;text-decoration:none;padding:13px 22px;border-radius:999px;border:1px solid transparent;cursor:pointer;transition:transform .2s, background .2s, border-color .2s}
+.btn-red{background:var(--crimson);color:#fff}
+.btn-red:hover{background:var(--crimson-soft);transform:translateY(-2px)}
+.btn-ghost{border-color:var(--line);color:var(--fg);background:transparent}
+.btn-ghost:hover{border-color:var(--crimson);transform:translateY(-2px)}
+.nav .btn{padding:10px 18px;font-size:14px}
+.menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:8px 12px;font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;cursor:pointer}
+@media (max-width:860px){
+  .nav ul,.nav .btn{display:none}
+  .menu-btn{display:block}
+  .nav.open ul{display:flex;flex-direction:column;gap:0;position:absolute;left:0;right:0;top:100%;background:var(--bg);border-bottom:1px solid var(--line);padding:8px var(--gut-r) 16px var(--gut)}
+  .nav.open ul a{display:block;padding:14px 0;border-bottom:1px solid var(--line);font-size:13px}
+}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding-block:72px 64px;overflow:hidden}
+.hero::before{content:"";position:absolute;width:780px;height:780px;right:-180px;top:-200px;background:radial-gradient(circle,color-mix(in srgb,var(--crimson) 32%,transparent) 0%,transparent 62%);pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.hero-text{min-width:0}
+.hello{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.hello .live{width:8px;height:8px;border-radius:50%;background:var(--crimson);animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.25}}
+h1{margin:0;font-family:var(--f-display);font-weight:900;font-size:clamp(64px,10.5vw,148px);line-height:.86;letter-spacing:-.035em;font-variation-settings:"wdth" 82;text-transform:uppercase}
+h1 .it{display:block;text-transform:none;font-size:1.08em;letter-spacing:-.02em;line-height:.9;margin-top:4px}
+.role{margin:28px 0 0;font-family:var(--f-display);font-size:clamp(22px,2.6vw,30px);font-weight:600;line-height:1.2;font-variation-settings:"wdth" 95;text-wrap:balance;max-width:22ch}
+.bio{color:var(--muted);max-width:52ch;margin:18px 0 32px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
+.socials{display:flex;flex-wrap:wrap;gap:22px;margin-top:34px}
+.socials a{text-decoration:none;font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:3px}
+.socials a:hover{color:var(--fg);border-color:var(--crimson)}
+
+.frame{position:relative;max-width:440px;width:100%;justify-self:end;aspect-ratio:4/5}
+.frame img{width:100%;height:100%;object-fit:cover;object-position:50% 20%;border-radius:18px;filter:saturate(1.05) contrast(1.04)}
+.frame::after{content:"";position:absolute;inset:0;border-radius:18px;background:linear-gradient(to top,color-mix(in srgb,var(--bg) 70%,transparent),transparent 40%);pointer-events:none}
+.corner{position:absolute;width:26px;height:26px;border-color:var(--crimson);border-style:solid;z-index:2}
+.c-tl{top:-10px;left:-10px;border-width:2px 0 0 2px}
+.c-tr{top:-10px;right:-10px;border-width:2px 2px 0 0}
+.c-bl{bottom:-10px;left:-10px;border-width:0 0 2px 2px}
+.c-br{bottom:-10px;right:-10px;border-width:0 2px 2px 0}
+.frame .tag{position:absolute;z-index:3;font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;color:var(--fg)}
+.frame .t1{top:16px;left:18px;display:flex;align-items:center;gap:8px}
+.frame .t1 i{width:7px;height:7px;border-radius:50%;background:var(--crimson);animation:blink 1.6s infinite}
+.frame .t2{top:16px;right:18px;color:var(--muted)}
+.frame .t3{bottom:18px;left:18px;right:18px;display:flex;justify-content:space-between;color:var(--muted)}
+.frame .t3 b{color:var(--fg);font-weight:500}
+@media (max-width:860px){
+  .hero{padding-block:44px 48px}
+  .hero .wrap{grid-template-columns:1fr;gap:48px}
+  .frame{justify-self:center;max-width:380px}
+}
+
+/* ---------- marquee ---------- */
+.marquee{border-block:1px solid var(--line);background:var(--surface);overflow:hidden;padding-block:20px}
+.track{display:flex;width:max-content;animation:scroll 38s linear infinite}
+.track span{font-family:var(--f-display);font-weight:800;font-size:clamp(22px,3vw,34px);text-transform:uppercase;letter-spacing:-.01em;font-variation-settings:"wdth" 80;white-space:nowrap;padding-inline:26px;display:flex;align-items:center;gap:52px}
+.track span::after{content:"✦";color:var(--crimson);font-size:.6em}
+.track span:nth-child(even){font-family:var(--f-serif);font-style:italic;font-weight:400;text-transform:none;color:var(--crimson-soft);font-variation-settings:normal;font-size:clamp(26px,3.4vw,40px)}
+.track span:nth-child(even)::after{color:var(--fg)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.track{animation:none}}
+
+/* ---------- sections ---------- */
+section{scroll-margin-top:80px}
+.sec{padding-block:104px}
+.sec-head{display:grid;grid-template-columns:240px 1fr;gap:32px;margin-bottom:56px;align-items:start}
+.sec-head .mono{padding-top:14px;display:flex;align-items:center;gap:10px}
+.sec-head .mono::before{content:"";width:22px;height:1px;background:var(--crimson)}
+h2{margin:0;font-family:var(--f-display);font-weight:900;font-size:clamp(40px,6vw,76px);line-height:.95;letter-spacing:-.03em;text-transform:uppercase;font-variation-settings:"wdth" 84;text-wrap:balance}
+h2 .it{text-transform:none;font-size:1.06em;letter-spacing:-.015em}
+.lede{color:var(--muted);max-width:58ch;margin:20px 0 0;font-size:18px}
+@media (max-width:860px){.sec{padding-block:72px}.sec-head{grid-template-columns:1fr;gap:10px;margin-bottom:40px}}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:240px 1fr;gap:32px}
+.about-body{display:grid;grid-template-columns:1.2fr .8fr;gap:56px;min-width:0}
+.about-body p{margin:0 0 18px;max-width:60ch}
+.about-body p:first-child{font-family:var(--f-display);font-size:clamp(22px,2.4vw,28px);line-height:1.3;font-weight:500;font-variation-settings:"wdth" 95;color:var(--fg)}
+.about-body p:not(:first-child){color:var(--muted)}
+.motto{display:flex;flex-direction:column;gap:0;border-left:1px solid var(--line);padding-left:32px;align-self:start}
+.motto div{font-family:var(--f-display);font-weight:900;font-size:clamp(40px,5vw,64px);line-height:1;text-transform:uppercase;letter-spacing:-.03em;font-variation-settings:"wdth" 78;padding-block:6px}
+.motto div:nth-child(2){font-family:var(--f-serif);font-style:italic;font-weight:400;text-transform:none;color:var(--crimson);font-variation-settings:normal;letter-spacing:-.01em}
+.motto .mono{margin-top:18px}
+@media (max-width:860px){.about-grid{grid-template-columns:1fr}.about-grid>.spacer{display:none}.about-body{grid-template-columns:1fr;gap:36px}.motto{padding-left:20px}}
+
+/* toolkit */
+.tools{display:flex;flex-wrap:wrap;gap:10px}
+.tools li{list-style:none;font-family:var(--f-mono);font-size:13px;letter-spacing:.04em;padding:10px 16px;border:1px solid var(--line);border-radius:999px;color:var(--fg);background:var(--surface);display:flex;align-items:center;gap:10px;transition:border-color .2s}
+.tools li:hover{border-color:var(--crimson)}
+.tools li span{color:var(--crimson);font-size:10px;letter-spacing:.14em}
+.tools{padding:0;margin:0}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.svc{background:var(--bg);padding:40px 36px 36px;display:flex;flex-direction:column;gap:16px;position:relative;transition:background .3s;min-width:0}
+.svc:hover{background:var(--surface)}
+.svc .letter{font-family:var(--f-serif);font-style:italic;font-size:64px;line-height:.8;color:var(--crimson)}
+.svc h3{margin:0;font-family:var(--f-display);font-weight:800;font-size:28px;line-height:1.05;text-transform:uppercase;letter-spacing:-.015em;font-variation-settings:"wdth" 88}
+.svc p{margin:0;color:var(--muted);max-width:46ch}
+.svc ul{margin:4px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.svc ul li{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;color:var(--fg);padding:6px 11px;border-radius:6px;background:var(--surface-2)}
+.svc .arrow{position:absolute;top:34px;right:32px;font-size:22px;color:var(--muted);transition:transform .25s,color .25s}
+.svc:hover .arrow{transform:translate(4px,-4px);color:var(--crimson)}
+.svc.wide{grid-column:1/-1;flex-direction:row;align-items:center;gap:36px}
+.svc.wide .svc-txt{display:flex;flex-direction:column;gap:12px;min-width:0}
+@media (max-width:760px){.services{grid-template-columns:1fr}.svc{padding:32px 22px}.svc.wide{flex-direction:column;align-items:flex-start;gap:16px}.svc .arrow{top:28px;right:22px}}
+
+/* work */
+.work{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.reel{display:flex;flex-direction:column;gap:14px;text-decoration:none;min-width:0}
+.reel .poster{position:relative;aspect-ratio:9/16;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.reel img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.reel:hover img{transform:scale(1.04)}
+.reel .poster::after{content:"▶";position:absolute;right:12px;bottom:12px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:12px;background:var(--crimson);color:#fff;opacity:0;transform:scale(.8);transition:.25s}
+.reel:hover .poster::after{opacity:1;transform:none}
+.reel .len{position:absolute;left:10px;top:10px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;padding:4px 8px;border-radius:5px;background:color-mix(in srgb,var(--bg) 75%,transparent);color:var(--fg)}
+.reel h3{margin:0;font-family:var(--f-display);font-weight:700;font-size:17px;line-height:1.25;font-variation-settings:"wdth" 95}
+.reel .cat{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--crimson-soft)}
+.work-foot{margin-top:44px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:28px}
+.work-foot p{margin:0;color:var(--muted);max-width:56ch}
+@media (max-width:1000px){.work{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:700px){.work{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.reel h3{font-size:15px}}
+.work.ads{grid-template-columns:repeat(5,minmax(0,1fr))}
+.player video{width:100%;height:100%;object-fit:cover;display:block;background:var(--bg)}
+.player::after{display:none}
+.player .len{pointer-events:none;transition:opacity .2s}
+.player.playing .len{opacity:0}
+.reel .client{font-size:14.5px;color:var(--muted);line-height:1.4;margin-top:-6px}
+@media (max-width:1000px){.work.ads{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:700px){
+  .work.ads{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding-bottom:10px;margin-right:calc(-1 * var(--gut-r))}
+  .work.ads .reel{flex:0 0 62%;scroll-snap-align:start}
+}
+.swipe{display:none}
+@media (max-width:700px){.swipe{display:block;margin:-24px 0 18px}}
+
+/* process */
+.process{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;counter-reset:step}
+.step{padding:28px 26px 8px 0;border-top:2px solid var(--line);position:relative;min-width:0}
+.step::before{content:"";position:absolute;top:-2px;left:0;width:48px;height:2px;background:var(--crimson)}
+.step .num{font-family:var(--f-display);font-weight:900;font-size:72px;line-height:1;color:transparent;-webkit-text-stroke:1.2px var(--muted);font-variation-settings:"wdth" 78;margin-bottom:14px}
+.step h3{margin:0 0 8px;font-family:var(--f-display);font-weight:800;font-size:21px;text-transform:uppercase;letter-spacing:-.01em;font-variation-settings:"wdth" 90}
+.step p{margin:0;color:var(--muted);font-size:16px}
+@media (max-width:860px){.process{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:36px}}
+@media (max-width:520px){.process{grid-template-columns:1fr}}
+
+/* faq */
+.faq{border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:24px;align-items:center;padding:26px 0;font-family:var(--f-display);font-weight:700;font-size:clamp(19px,2vw,23px);font-variation-settings:"wdth" 95}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--f-mono);font-weight:400;font-size:24px;color:var(--crimson);transition:transform .25s;flex:none}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:0 0 26px;color:var(--muted);max-width:68ch}
+
+/* contact */
+.contact{background:var(--surface);border-block:1px solid var(--line);position:relative;overflow:hidden}
+.contact::before{content:"";position:absolute;width:900px;height:900px;left:-300px;bottom:-560px;background:radial-gradient(circle,color-mix(in srgb,var(--crimson) 26%,transparent),transparent 60%);pointer-events:none}
+.contact .wrap{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:64px}
+.contact-left{min-width:0}
+.contact-left h2{font-size:clamp(48px,7vw,96px)}
+.keyword{margin-top:32px;display:inline-flex;align-items:center;gap:14px;padding:16px 20px;border:1px dashed var(--crimson);border-radius:12px}
+.keyword b{font-family:var(--f-display);font-weight:900;font-size:26px;letter-spacing:.02em;color:var(--crimson-soft)}
+.keyword span{color:var(--muted);font-size:15px;line-height:1.35}
+.info{margin-top:36px;display:grid;gap:18px}
+.info div{display:grid;gap:4px}
+.info strong{font-weight:600}
+form{display:grid;gap:16px;min-width:0}
+.field{display:grid;gap:8px}
+.field label{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+input,select,textarea{width:100%;font:inherit;font-size:16px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px;transition:border-color .2s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--crimson)}
+textarea{min-height:140px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+form .btn{justify-self:start;margin-top:6px}
+.note{margin:0;font-size:15px;color:var(--muted);padding:14px 16px;border-radius:10px;border:1px solid var(--line);background:var(--bg)}
+.note b{color:var(--fg)}
+@media (max-width:860px){.contact .wrap{grid-template-columns:1fr;gap:48px}.row2{grid-template-columns:1fr}}
+
+/* footer */
+/* builds */
+.builds{display:grid;gap:20px}
+.build{display:grid;grid-template-columns:220px minmax(0,1fr);gap:44px;align-items:center;padding:28px;border:1px solid var(--line);border-radius:20px;background:var(--surface);transition:border-color .25s}
+.build:hover{border-color:color-mix(in srgb,var(--crimson) 55%,var(--line))}
+.shot{aspect-ratio:9/16;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--bg)}
+.shot img{width:100%;height:100%;object-fit:cover}
+.build-body{min-width:0}
+.build-top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.build .cat{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--crimson-soft)}
+.pill{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.build h3{margin:12px 0 22px;font-family:var(--f-display);font-weight:800;font-size:clamp(24px,2.6vw,32px);line-height:1.05;text-transform:uppercase;letter-spacing:-.015em;font-variation-settings:"wdth" 88}
+.build dl{margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;border-top:1px solid var(--line);padding-top:22px}
+.build dt{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.build dd{margin:0;font-size:15.5px;line-height:1.55}
+@media (max-width:960px){.build dl{grid-template-columns:1fr;gap:18px}}
+@media (max-width:640px){.build{grid-template-columns:1fr;gap:24px;padding:20px}.shot{max-width:200px}}
+
+/* industries */
+.ind{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.ind li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) auto;gap:24px;align-items:baseline;padding:24px 0;border-bottom:1px solid var(--line);transition:padding .25s}
+.ind li:hover{padding-left:12px}
+.ind h3{margin:0;font-family:var(--f-display);font-weight:800;font-size:clamp(20px,2.2vw,26px);text-transform:uppercase;letter-spacing:-.01em;font-variation-settings:"wdth" 90}
+.ind li:hover h3{color:var(--crimson-soft)}
+.ind p{margin:0;color:var(--muted)}
+@media (max-width:760px){.ind li{grid-template-columns:1fr;gap:6px}}
+
+/* footer */
+footer{padding-block:72px 32px}
+.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1.2fr 1.2fr;gap:40px}
+.foot-brand{display:flex;flex-direction:column;align-items:flex-start;gap:18px}
+.foot-brand p{margin:0;color:var(--muted);max-width:36ch;font-size:15.5px}
+.foot-col{display:flex;flex-direction:column;gap:12px;min-width:0}
+.foot-col .mono{margin-bottom:4px}
+.foot-col a{text-decoration:none;color:var(--fg);font-size:15px;overflow-wrap:anywhere;transition:color .2s}
+.foot-col a:hover{color:var(--crimson-soft)}
+@media (max-width:860px){.foot-grid{grid-template-columns:1fr 1fr}.foot-brand{grid-column:1/-1}}
+@media (max-width:440px){.foot-grid{grid-template-columns:1fr}}
+.foot-row{margin-top:56px;display:flex;flex-wrap:wrap;gap:20px 40px;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:26px}
+.foot-row p{margin:0;color:var(--muted);font-size:15px}
+.foot-row a{text-decoration:none}
+.foot-row a:hover{color:var(--crimson-soft)}
+</style>
+
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Iqra Yahya, back to top"><span class="dot"></span>IQRA YAHYA</a>
+    <ul id="menu">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn btn-red" href="#contact">Start a project ↗</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">MENU</button>
+  </div>
+</header>
+
+<main id="content">
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <div class="hero-text">
+        <div class="hello"><span class="live"></span><span class="mono">Hello, I'm</span></div>
+        <h1>Iqra <span class="it">Yahya</span></h1>
+        <p class="role">I create, build and automate with <span class="it">AI.</span></p>
+        <p class="bio">AI video, AI agents and Claude Code automation for founders and business owners. I make the content that gets you seen, then build the systems that handle the work behind it.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-red" href="#work">See my work ↓</a>
+          <a class="btn btn-ghost" href="#contact">Book a discovery call</a>
+        </div>
+        <nav class="socials" aria-label="Social links">
+          <a href="#" data-link="instagram">Instagram</a>
+          <a href="#" data-link="tiktok">TikTok</a>
+          <a href="#" data-link="whatsapp">WhatsApp</a>
+          <a href="#" data-link="email">Email</a>
+        </nav>
+      </div>
+      <figure class="frame" style="margin:0">
+        <span class="corner c-tl"></span><span class="corner c-tr"></span><span class="corner c-bl"></span><span class="corner c-br"></span>
+        <img src="images/portrait.jpg" alt="Portrait of Iqra Yahya wearing a crimson and black checked scarf" width="760" height="760">
+        <span class="tag t1"><i></i>REC</span>
+        <span class="tag t2">1080 × 1920</span>
+        <span class="tag t3"><span>AI · VIDEO · AGENTS</span><b>EST. 2026</b></span>
+      </figure>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      <span>AI Animation</span><span>and video</span><span>AI Agents</span><span>that reply 24/7</span><span>Claude Code</span><span>automation</span><span>AI Ads</span><span>that stop the scroll</span>
+      <span>AI Animation</span><span>and video</span><span>AI Agents</span><span>that reply 24/7</span><span>Claude Code</span><span>automation</span><span>AI Ads</span><span>that stop the scroll</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="sec" id="about">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="mono">About me</div>
+        <h2>Who I <span class="it">am</span></h2>
+      </div>
+      <div class="about-grid">
+        <div class="spacer"></div>
+        <div class="about-body">
+          <div>
+            <p>I'm an independent AI creator and builder. Half of my work is creative and half is technical, and most clients need both.</p>
+            <p>On the creative side I script, animate and edit short-form video and ads, built for Reels and TikTok. Every frame, voiceover and caption is made to keep people watching to the end.</p>
+            <p>On the technical side I build AI agents and automations with Claude Code: WhatsApp assistants that book appointments, research pipelines that find your next content idea, and workflows that take admin off your plate.</p>
+            <p>Every project goes through an approval step before production starts, so you see the plan before anything is spent.</p>
+          </div>
+          <div class="motto" aria-label="Create, build, automate">
+            <div>Create</div>
+            <div>Build</div>
+            <div>Automate</div>
+            <span class="mono">Content psychology · Storytelling · Systems</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLKIT -->
+  <section class="sec" id="toolkit" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="mono">Toolkit</div>
+        <div>
+          <h2>What I <span class="it">work with</span></h2>
+          <p class="lede">The tools behind the reels, agents and automations on this page.</p>
+        </div>
+      </div>
+      <ul class="tools">
+        <li><span>BUILD</span>Claude Code</li>
+        <li><span>BUILD</span>MCP servers</li>
+        <li><span>BUILD</span>WhatsApp Business API</li>
+        <li><span>BUILD</span>Prompt &amp; agent design</li>
+        <li><span>VIDEO</span>Remotion</li>
+        <li><span>VIDEO</span>Kling AI</li>
+        <li><span>VIDEO</span>Seedance</li>
+        <li><span>VIDEO</span>Three.js motion</li>
+        <li><span>VIDEO</span>FFmpeg</li>
+        <li><span>AUDIO</span>AI voiceover</li>
+        <li><span>AUDIO</span>Whisper captions</li>
+        <li><span>ADS</span>Meta Ads</li>
+        <li><span>STRATEGY</span>Hooks &amp; scripting</li>
+        <li><span>STRATEGY</span>Content psychology</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="sec" id="services" style="padding-top:24px">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="mono">What I do</div>
+        <div>
+          <h2>My <span class="it">services</span></h2>
+          <p class="lede">Four core services, plus an open lab where I test new tools before they reach client work.</p>
+        </div>
+      </div>
+      <div class="services">
+        <article class="svc">
+          <span class="arrow" aria-hidden="true">↗</span>
+          <span class="letter">A</span>
+          <h3>AI animation &amp; video</h3>
+          <p>Short-form explainers, brand reels and animated stories, scripted and edited for Reels, TikTok and Shorts.</p>
+          <ul><li>Scripts &amp; hooks</li><li>Motion graphics</li><li>Voiceover</li><li>Captions</li></ul>
+        </article>
+        <article class="svc">
+          <span class="arrow" aria-hidden="true">↗</span>
+          <span class="letter">B</span>
+          <h3>AI agents</h3>
+          <p>Assistants that answer customers, qualify leads and book appointments on WhatsApp and your website, day and night.</p>
+          <ul><li>WhatsApp booking</li><li>Lead follow-up</li><li>FAQ assistants</li></ul>
+        </article>
+        <article class="svc">
+          <span class="arrow" aria-hidden="true">↗</span>
+          <span class="letter">C</span>
+          <h3>Claude Code &amp; automation</h3>
+          <p>Custom workflows that cut hours of manual work: research, reporting, content pipelines and data entry.</p>
+          <ul><li>Content research</li><li>Video pipelines</li><li>Admin automation</li></ul>
+        </article>
+        <article class="svc">
+          <span class="arrow" aria-hidden="true">↗</span>
+          <span class="letter">D</span>
+          <h3>AI ads</h3>
+          <p>Scroll-stopping video ads for real estate, e-commerce and local businesses, with hooks and copy tested for Meta.</p>
+          <ul><li>Video ads</li><li>Ad copy</li><li>Creative variations</li></ul>
+        </article>
+        <article class="svc wide">
+          <span class="arrow" aria-hidden="true">↗</span>
+          <span class="letter">E</span>
+          <div class="svc-txt">
+            <h3>The lab</h3>
+            <p>Experiments with new AI tools: Claude joining Google Meet, video edits made in Claude, plugin tests. What works here becomes part of services A to D.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES -->
+  <section class="sec" id="industries" style="padding-top:24px">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="mono">Who I work with</div>
+        <div>
+          <h2>Industries I've <span class="it">built for</span></h2>
+        </div>
+      </div>
+      <ul class="ind">
+        <li><h3>Real estate</h3><p>Seller-lead ads, home valuation campaigns and agent videos.</p><span class="mono">Ads · Video</span></li>
+        <li><h3>Dental &amp; clinics</h3><p>AI front desks that answer patients and handle bookings.</p><span class="mono">Agents · Automation</span></li>
+        <li><h3>Jewelry &amp; e-commerce</h3><p>AI product films for Reels, Stories and Facebook feeds.</p><span class="mono">Ads · AI video</span></li>
+        <li><h3>SaaS</h3><p>Product commercials built from real screen recordings.</p><span class="mono">Video</span></li>
+        <li><h3>Founders &amp; coaches</h3><p>Content systems, research tools and short-form video.</p><span class="mono">Automation · Video</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FEATURED BUILDS -->
+  <section class="sec" id="work">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="mono">Selected work</div>
+        <div>
+          <h2>Featured <span class="it">builds</span></h2>
+          <p class="lede">AI agents and automations I've designed and built, from the first prompt to a working system.</p>
+        </div>
+      </div>
+      <div class="builds">
+        <article class="build">
+          <div class="shot"><img src="images/build-whatsapp.jpg" alt="WhatsApp chat beside a booking calendar showing open time slots" loading="lazy"></div>
+          <div class="build-body">
+            <div class="build-top"><span class="cat">B · AI agent</span><span class="pill">Demo build</span></div>
+            <h3>WhatsApp AI booking agent</h3>
+            <dl>
+              <div><dt>The problem</dt><dd>Small businesses lose bookings when nobody answers WhatsApp messages fast enough.</dd></div>
+              <div><dt>What I built</dt><dd>An agent that replies to customers in WhatsApp, checks the booking calendar, confirms the slot and sends booking updates using approved message templates.</dd></div>
+              <div><dt>Built with</dt><dd>Claude Code · Kapso · WhatsApp Business API</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="build">
+          <div class="shot"><img src="images/build-dental.jpg" alt="Phone showing a patient message handled by an AI front desk" loading="lazy"></div>
+          <div class="build-body">
+            <div class="build-top"><span class="cat">C · Automation</span><span class="pill">Demo build</span></div>
+            <h3>AI front desk for dental clinics</h3>
+            <dl>
+              <div><dt>The problem</dt><dd>Clinic staff spend hours on manual data entry, chasing follow-ups and answering the same patient questions.</dd></div>
+              <div><dt>What I built</dt><dd>A front-desk workflow that answers patient messages, handles appointment requests and runs follow-ups, so the team can focus on patients in the chair.</dd></div>
+              <div><dt>Built with</dt><dd>Claude Code · WhatsApp · Workflow automation</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="build">
+          <div class="shot"><img src="images/build-research.jpg" alt="AI research assistant asking which niche to research" loading="lazy"></div>
+          <div class="build-body">
+            <div class="build-top"><span class="cat">C · Claude Code</span><span class="pill">Own tool</span></div>
+            <h3>Content research assistant</h3>
+            <dl>
+              <div><dt>The problem</dt><dd>Finding fresh content ideas for a niche takes hours of scrolling and note-taking every week.</dd></div>
+              <div><dt>What I built</dt><dd>A Claude assistant that takes a niche, researches what its audience engages with, and returns structured ideas, hooks and angles ready to script.</dd></div>
+              <div><dt>Built with</dt><dd>Claude · Custom instructions · Structured output</dd></div>
+            </dl>
+          </div>
+        </article>
+      </div>
+      <div class="work-foot">
+        <p>Need an agent or automation like these for your business? Tell me what takes up your team's time.</p>
+        <a class="btn btn-red" href="#contact">Start a project ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENT ADS -->
+  <section class="sec" id="ads" style="padding-top:24px">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="mono">Client work</div>
+        <div>
+          <h2>Ads I've made <span class="it">for clients</span></h2>
+          <p class="lede">Paid social ads for a jewelry brand and a Philadelphia real estate team, from AI-generated product films and two-person spokesperson ads to edits of the client's own selfie footage. Press play to watch each one with sound.</p>
+        </div>
+      </div>
+      <p class="mono swipe">Swipe →</p>
+      <div class="work ads">
+        <div class="reel">
+          <div class="poster player"><video controls playsinline preload="metadata" poster="images/ad-jewelry.jpg" aria-label="Jewelry ad: a gold open-heart pendant worn with a cream silk top"><source src="videos/ad-jewelry.mp4" type="video/mp4"></video><span class="len">0:20</span></div>
+          <span class="cat">D · AI product film</span><h3>Two stones, one heart</h3>
+          <span class="client">Jewelry brand · Stories &amp; Reels ad</span>
+        </div>
+        <div class="reel">
+          <div class="poster player"><video controls playsinline preload="metadata" poster="images/ad-curious.jpg" aria-label="Real estate ad: Just curious what your home is worth?"><source src="videos/ad-curious.mp4" type="video/mp4"></video><span class="len">0:20</span></div>
+          <span class="cat">D · AI spokesperson ad</span><h3>Just curious what your home is worth?</h3>
+          <span class="client">Real estate team · Seller leads</span>
+        </div>
+        <div class="reel">
+          <div class="poster player"><video controls playsinline preload="metadata" poster="images/ad-whyus.jpg" aria-label="Real estate ad: Selling your home?"><source src="videos/ad-whyus.mp4" type="video/mp4"></video><span class="len">0:25</span></div>
+          <span class="cat">D · AI spokesperson ad</span><h3>Why sell with us</h3>
+          <span class="client">Real estate team · Brand ad</span>
+        </div>
+        <div class="reel">
+          <div class="poster player"><video controls playsinline preload="metadata" poster="images/ad-valuation.jpg" aria-label="Real estate ad: What's your Philly home worth?"><source src="videos/ad-valuation.mp4" type="video/mp4"></video><span class="len">0:15</span></div>
+          <span class="cat">D · AI spokesperson ad</span><h3>What's your Philly home worth?</h3>
+          <span class="client">Real estate team · Home valuation</span>
+        </div>
+        <div class="reel">
+          <div class="poster player"><video controls playsinline preload="metadata" poster="images/ad-leadgen.jpg" aria-label="Selfie video: My lead gen system never sleeps"><source src="videos/ad-leadgen.mp4" type="video/mp4"></video><span class="len">0:29</span></div>
+          <span class="cat">A · Video edit</span><h3>My lead gen system never sleeps</h3>
+          <span class="client">Real estate team · Selfie footage, edited</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="sec" id="process" style="padding-top:24px">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="mono">How it works</div>
+        <div>
+          <h2>From idea to <span class="it">live</span></h2>
+          <p class="lede">Nothing goes into production until you have approved the plan.</p>
+        </div>
+      </div>
+      <div class="process">
+        <div class="step"><div class="num">01</div><h3>Discovery</h3><p>A short call about your business, your audience and what should change.</p></div>
+        <div class="step"><div class="num">02</div><h3>Plan</h3><p>You get a storyboard, script or system map to review and approve.</p></div>
+        <div class="step"><div class="num">03</div><h3>Build</h3><p>I produce the video or build the agent, with check-ins along the way.</p></div>
+        <div class="step"><div class="num">04</div><h3>Launch</h3><p>Final delivery, a walkthrough, and revisions until it is right.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec" id="faq" style="padding-top:24px">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="mono">Questions</div>
+        <h2>Good to <span class="it">know</span></h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>Who do you work with?</summary>
+          <p>Founders, coaches and business owners who want more attention online and less manual work behind the scenes. I have built for real estate, dental clinics, e-commerce and SaaS.</p>
+        </details>
+        <details>
+          <summary>Do I need to be on camera?</summary>
+          <p>No. Most of my reels are fully animated with motion graphics and AI voiceover. If you want to appear, I can edit your own footage too.</p>
+        </details>
+        <details>
+          <summary>What does an AI agent actually do for my business?</summary>
+          <p>It handles repeat conversations for you: answering common questions, qualifying leads and booking appointments, often on WhatsApp. You stay in control and can step in at any time.</p>
+        </details>
+        <details>
+          <summary>How long does a project take?</summary>
+          <p>A single reel usually takes a few days after the script is approved. Agents and automations depend on scope, and I give you a timeline with the plan in step 02.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact sec" id="contact">
+    <div class="wrap">
+      <div class="contact-left">
+        <div class="mono" style="margin-bottom:18px">Get in touch</div>
+        <h2>Let's build <span class="it">something</span></h2>
+        <p class="lede">Tell me about your project. I reply within two working days.</p>
+        <div class="keyword"><b>PROJECT</b><span>Or DM me the word PROJECT<br>on Instagram to start.</span></div>
+        <div class="info">
+          <div><span class="mono">Email</span><strong id="emailText"><a href="mailto:iqrayahya.tech@gmail.com" style="text-decoration:none">iqrayahya.tech@gmail.com</a></strong></div>
+          <div><span class="mono">WhatsApp</span><strong><a href="https://wa.me/923196218650" target="_blank" rel="noopener" style="text-decoration:none">+92 319 621 8650</a></strong></div>
+          <div><span class="mono">Instagram · TikTok</span><strong><a href="https://www.instagram.com/iqrayahya.tech" target="_blank" rel="noopener" style="text-decoration:none">@iqrayahya.tech</a> · <a href="https://www.tiktok.com/@iqra.yahya8" target="_blank" rel="noopener" style="text-decoration:none">@iqra.yahya8</a></strong></div>
+          <div><span class="mono">Works with</span><strong>Clients worldwide, remote</strong></div>
+        </div>
+      </div>
+      <form id="contactForm" novalidate>
+        <div class="row2">
+          <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required placeholder="Your name"></div>
+          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required placeholder="you@company.com"></div>
+        </div>
+        <div class="field">
+          <label for="f-service">I need help with</label>
+          <select id="f-service" name="service">
+            <option>AI animation &amp; video</option>
+            <option>AI agents</option>
+            <option>Claude Code &amp; automation</option>
+            <option>AI ads</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="field"><label for="f-msg">Project details</label><textarea id="f-msg" name="message" required placeholder="What do you want to create or automate?"></textarea></div>
+        <button class="btn btn-red" type="submit">Send message ↗</button>
+        <p class="note" id="formNote" hidden></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="#top"><span class="dot"></span>IQRA YAHYA</a>
+        <p>AI video, AI agents and Claude Code automation for founders and business owners.</p>
+        <a class="btn btn-red" href="#contact">Start a project ↗</a>
+      </div>
+      <div class="foot-col">
+        <span class="mono">Navigate</span>
+        <a href="#about">About</a><a href="#services">Services</a><a href="#work">Work</a><a href="#process">Process</a><a href="#contact">Contact</a>
+      </div>
+      <div class="foot-col">
+        <span class="mono">Services</span>
+        <a href="#services">AI animation &amp; video</a><a href="#services">AI agents</a><a href="#services">Claude Code &amp; automation</a><a href="#services">AI ads</a>
+      </div>
+      <div class="foot-col">
+        <span class="mono">Connect</span>
+        <a href="#" data-link="instagram">Instagram</a><a href="#" data-link="tiktok">TikTok</a><a href="#" data-link="whatsapp">WhatsApp</a><a href="#" data-link="email">iqrayahya.tech@gmail.com</a>
+      </div>
+    </div>
+    <div class="foot-row">
+      <p>© 2026 Iqra Yahya. All rights reserved.</p>
+      <a class="mono" href="#top">↑ Back to top</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---- Fill these in before going live ---- */
+const LINKS = {
+  instagram: "https://www.instagram.com/iqrayahya.tech",
+  tiktok: "https://www.tiktok.com/@iqra.yahya8",
+  whatsapp: "https://wa.me/923196218650",
+  email: "mailto:iqrayahya.tech@gmail.com"
+};
+const FORM_ENDPOINT = ""; // e.g. a Formspree URL; leave empty and the form copies the message for a DM
+
+document.querySelectorAll("[data-link]").forEach(a => {
+  const url = LINKS[a.dataset.link];
+  if (url) { a.href = url; if (!url.startsWith("mailto:")) { a.target = "_blank"; a.rel = "noopener"; } }
+  else if (a.closest(".socials")) { a.addEventListener("click", e => e.preventDefault()); }
+  else { a.addEventListener("click", e => e.preventDefault()); }
+});
+
+/* Ad players: only one plays at a time */
+const players = [...document.querySelectorAll(".player video")];
+players.forEach(v => {
+  v.addEventListener("play", () => {
+    players.forEach(o => { if (o !== v) o.pause(); });
+    v.parentElement.classList.add("playing");
+  });
+  v.addEventListener("pause", () => v.parentElement.classList.remove("playing"));
+  v.addEventListener("ended", () => v.parentElement.classList.remove("playing"));
+});
+
+const nav = document.getElementById("nav"), menuBtn = document.getElementById("menuBtn");
+menuBtn.addEventListener("click", () => {
+  const open = nav.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", open);
+  menuBtn.textContent = open ? "CLOSE" : "MENU";
+});
+document.querySelectorAll("#menu a").forEach(a => a.addEventListener("click", () => {
+  nav.classList.remove("open"); menuBtn.setAttribute("aria-expanded", false); menuBtn.textContent = "MENU";
+}));
+
+const form = document.getElementById("contactForm"), note = document.getElementById("formNote");
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const d = Object.fromEntries(new FormData(form));
+  if (!d.name || !d.email || !d.message) {
+    note.hidden = false; note.innerHTML = "<b>Please fill in your name, email and project details.</b>"; return;
+  }
+  if (FORM_ENDPOINT) {
+    try {
+      const r = await fetch(FORM_ENDPOINT, {method:"POST", headers:{Accept:"application/json"}, body:new FormData(form)});
+      if (!r.ok) throw new Error();
+      note.hidden = false; note.innerHTML = "<b>Thanks, " + d.name.replace(/</g,"&lt;") + ".</b> Your message was sent. I'll reply within two working days.";
+      form.reset(); return;
+    } catch { /* fall through to copy */ }
+  }
+  const text = `Hi Iqra, I'm ${d.name} (${d.email}).\nI need help with: ${d.service}\n\n${d.message}`;
+  let copied = false;
+  try { await navigator.clipboard.writeText(text); copied = true; } catch {}
+  note.hidden = false;
+  note.innerHTML = copied
+    ? "<b>Your message is copied.</b> Paste it into WhatsApp (+92 319 621 8650), an Instagram DM or an email to iqrayahya.tech@gmail.com and I'll reply within two working days."
+    : "<b>Copy your message below</b> and send it on WhatsApp (+92 319 621 8650), in an Instagram DM or to iqrayahya.tech@gmail.com.<br><br>" + text.replace(/</g,"&lt;").replace(/\n/g,"<br>");
+});
+</script>
+
+</body>
+</html>
